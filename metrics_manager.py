@@ -1,49 +1,49 @@
 import time
+import requests
 
-# { object_id : time }
-ALL_USERS = {}
-START = int(time.time())
-
-
-def newLoop():
-    global ACTIVE_IDs
-    global START
-    ACTIVE_IDs = []
-    START = int(time.time())
+'''
+ALL_USERS schema
+{ object_id : time }
+'''
 
 
-def currentTimeFromStart():
-    global START
-    now = int(time.time())
-    elapsed = now - START
-    return elapsed
+class MetricsManager:
 
+    def __init__(self):
+        self.ACTIVE_IDs = []
+        self.START = int(time.time())
+        self.ALL_USERS = {}
 
-def addTimeFor(objectId):
-    global ACTIVE_IDs
-    global ALL_USERS
-    elapsed = currentTimeFromStart()
-    if not objectId in ALL_USERS:
-        ALL_USERS[objectId] = elapsed
-    else:
-        ALL_USERS[objectId] += elapsed
+    def newLoop(self):
+        self.ACTIVE_IDs = []
+        self.START = int(time.time())
 
+    def currentTimeFromStart(self):
+        now = int(time.time())
+        elapsed = now - self.START
+        return elapsed
 
-def timeForId(objectId):
-    return ALL_USERS[objectId]
+    def addTimeFor(self, objectId):
+        elapsed = self.currentTimeFromStart()
+        if not objectId in self.ALL_USERS:
+            self.ALL_USERS[objectId] = elapsed
+        else:
+            self.ALL_USERS[objectId] += elapsed
+        # sendTrackDataToServer(objectId, elapsed)
 
+    def timeForId(self, objectId):
+        return self.ALL_USERS[objectId]
 
-def currentMetrics():
-    global ALL_USERS
-    times = []
-    for _, time in ALL_USERS.items():
-        times.append(time)
-    if len(times) == 0:
-        times.append(0)
-    return {
-        "min": min(times),
-        "max": max(times),
-        "avg": sum(times) / len(times),
-        "total": sum(times),
-        "count": len(ALL_USERS.items())
-    }
+    def currentMetrics(self):
+        times = []
+        for _, time in self.ALL_USERS.items():
+            times.append(time)
+        if len(times) == 0:
+            times.append(0)
+        return {
+            "min": min(times),
+            "max": max(times),
+            "avg": sum(times) / len(times),
+            "total": sum(times),
+            "count": len(self.ALL_USERS.items())
+        }

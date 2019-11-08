@@ -8,6 +8,10 @@ and longest time detected.
 import time
 import edgeiq
 import metrics_manager
+import file_manager
+
+CENTROID_TRACKER = "centroid_tracker"
+METRICS_MANAGER = "metrics_manager"
 
 
 def main():
@@ -18,9 +22,11 @@ def main():
     print("Accelerator: {}\n".format(obj_detect.accelerator))
     print("Model:\n{}\n".format(obj_detect.model_id))
 
-    centroid_tracker = edgeiq.CentroidTracker(
-        deregister_frames=20, max_distance=50)
+    centroid_tracker = file_manager.load(CENTROID_TRACKER, edgeiq.CentroidTracker(
+        deregister_frames=20, max_distance=50))
     fps = edgeiq.FPS()
+    metrics = file_manager.load(
+        METRICS_MANAGER, metrics_manager.MetricsManager())
 
     try:
 
@@ -32,7 +38,7 @@ def main():
 
             # Loop detection and centroid tracker
             while True:
-                metrics_manager.newLoop()
+                metrics.newLoop()
                 frame = video_stream.read()
                 results = obj_detect.detect_objects(frame, confidence_level=.8)
 
@@ -57,8 +63,8 @@ def main():
                     text.append("-- NONE")
 
                 for (object_id, prediction) in objects.items():
-                    metrics_manager.addTimeFor(object_id)
-                    timeForId = metrics_manager.timeForId(object_id)
+                    metrics.addTimeFor(object_id)
+                    timeForId = metrics.timeForId(object_id)
                     # Correcting for fact that index 0 is first object in an array
                     idAdjusted = object_id + 1
                     # Display text with bounding box in video
@@ -69,13 +75,13 @@ def main():
                     predictions.append(prediction)
 
                 # Add metrics to text going to streamer
-                metrics = metrics_manager.currentMetrics()
+                m = metrics.currentMetrics()
                 text.append("")  # Spacing
-                text.append("Total people seen: {}".format(metrics["count"]))
-                text.append("Total time: {} sec".format(metrics["total"]))
-                text.append("Average time: {0:.1f} sec".format(metrics["avg"]))
+                text.append("Total people seen: {}".format(m["count"]))
+                text.append("Total time: {} sec".format(m["total"]))
+                text.append("Average time: {0:.1f} sec".format(m["avg"]))
                 text.append(
-                    "Longest individual time: {} sec".format(metrics["max"]))
+                    "Longest individual time: {} sec".format(m["max"]))
 
                 # Update output streamer
                 frame = edgeiq.markup_image(frame, predictions)
@@ -87,6 +93,9 @@ def main():
 
     finally:
         fps.stop()
+        # TODO: Update to save every few seconds in case a crash occurs
+        file_manager.save(metrics, METRICS_MANAGER)
+        file_manager.save(centroid_tracker, CENTROID_TRACKER)
         print("elapsed time: {:.2f}".format(fps.get_elapsed_seconds()))
         print("approx. FPS: {:.2f}".format(fps.compute_fps()))
         print("Program Ending")

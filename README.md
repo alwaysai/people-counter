@@ -6,6 +6,9 @@ This app requires access to alwaysAI's Beta program. To apply goto the [Sign up 
 
 Once accepted to the program, follow the setup instructions located on the [Docs page](https://dashboard.alwaysai.co/docs/getting_started/introduction.html) - Note this link is accessible only to beta users.
 
+## Persistence
+The metric_manager saves a record of visits with each newLoop() call. To reset, delete the `visits.json` file.
+
 ## Usage
 Once the alwaysAI toolset is installed on your development machine (or edge device if developing directly on it) you can run the following CLI commands:
 

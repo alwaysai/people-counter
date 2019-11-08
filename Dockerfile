@@ -1,1 +1,1 @@
-FROM alwaysai/edgeiq:0.7.0
+FROM alwaysai/edgeiq:0.7.20
