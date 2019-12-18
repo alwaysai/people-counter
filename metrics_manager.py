@@ -1,5 +1,4 @@
 import time
-import requests
 
 '''
 ALL_USERS schema
