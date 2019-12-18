@@ -12,9 +12,13 @@ import file_manager
 
 CENTROID_TRACKER = "centroid_tracker"
 METRICS_MANAGER = "metrics_manager"
+DETECT_CONFIDENCE_THRESHOLD = .8
+TRACKER_DEREGISTER_FRAMES = 20
+TRACKER_MAX_DISTANCE = 50
 
 
 def main():
+    # Spin up the object detector
     obj_detect = edgeiq.ObjectDetection("alwaysai/mobilenet_ssd")
     obj_detect.load(engine=edgeiq.Engine.DNN_OPENVINO)
 
@@ -22,9 +26,13 @@ def main():
     print("Accelerator: {}\n".format(obj_detect.accelerator))
     print("Model:\n{}\n".format(obj_detect.model_id))
 
-    centroid_tracker = file_manager.load(CENTROID_TRACKER, edgeiq.CentroidTracker(
-        deregister_frames=20, max_distance=50))
+    # Prepare to track frames per second calculations
     fps = edgeiq.FPS()
+
+    # Load any prior instance of the tracker, otherwise spin up a new one
+    centroid_tracker = file_manager.load(CENTROID_TRACKER, edgeiq.CentroidTracker(
+        deregister_frames=TRACKER_DEREGISTER_FRAMES, max_distance=TRACKER_MAX_DISTANCE))
+    # Load any prior instance of the metrics data, otherwise start a new one
     metrics = file_manager.load(
         METRICS_MANAGER, metrics_manager.MetricsManager())
 
@@ -40,7 +48,8 @@ def main():
             while True:
                 metrics.newLoop()
                 frame = video_stream.read()
-                results = obj_detect.detect_objects(frame, confidence_level=.8)
+                results = obj_detect.detect_objects(
+                    frame, confidence_level=DETECT_CONFIDENCE_THRESHOLD)
 
                 # Ignore detections of anything other than people
                 filter = edgeiq.filter_predictions_by_label(
