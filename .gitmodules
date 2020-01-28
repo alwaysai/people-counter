@@ -1,0 +1,4 @@
+[submodule "balena-sense"]
+	path = balena-sense
+	url = git@github.com:balenalabs/balena-sense.git
+	branch = add-mqtt-input
