@@ -20,7 +20,7 @@ TRACKER_MAX_DISTANCE = 50
 def main():
     # Spin up the object detector
     obj_detect = edgeiq.ObjectDetection("alwaysai/mobilenet_ssd")
-    obj_detect.load(engine=edgeiq.Engine.DNN)
+    obj_detect.load(engine=edgeiq.Engine.DNN_CUDA)
 
     print("Engine: {}".format(obj_detect.engine))
     print("Accelerator: {}\n".format(obj_detect.accelerator))
