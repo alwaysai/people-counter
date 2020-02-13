@@ -1,0 +1,30 @@
+{
+  "id": "alwaysai/yolo_v2_tiny",
+  "accuracy": "",
+  "description": "Tiny YOLO is based off of the Darknet reference network and is much faster but less accurate than the normal YOLO model.",
+  "inference_time": 0,
+  "license": "GPL AND MIT AND SEE LICENSE IN license.v1 AND SEE LICENSE IN license.txt AND GPL-3.0-only AND WTFPL AND SEE LICENSE IN license.meta AND SEE LICENSE IN license.gen",
+  "mean_average_precision_top_1": null,
+  "mean_average_precision_top_5": null,
+  "public": true,
+  "website_url": "https://pjreddie.com/darknet/yolov2/",
+  "model_parameters": {
+    "framework_type": "darknet",
+    "config_file": "models/yolov2-tiny.cfg",
+    "size": [
+      416,
+      416
+    ],
+    "model_file": "models/yolov2-tiny.weights",
+    "label_file": "labels/coco.names",
+    "scalefactor": 0.003922,
+    "mean": [
+      0,
+      0,
+      0
+    ],
+    "crop": false,
+    "purpose": "ObjectDetection"
+  },
+  "version": 1
+}

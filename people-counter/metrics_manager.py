@@ -45,7 +45,6 @@ class MetricsManager:
             self.mqtt.publish('sensors', payload=data, qos=0, retain=False)
         else:
             self.ALL_USERS[objectId] += elapsed
-        # sendTrackDataToServer(objectId, elapsed)
 
     def timeForId(self, objectId):
         return self.ALL_USERS[objectId]

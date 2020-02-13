@@ -5,6 +5,7 @@ display general metrics on total number of people, average time seen,
 and longest time detected.
 """
 
+import os
 import time
 import edgeiq
 import metrics_manager
@@ -16,16 +17,23 @@ DETECT_CONFIDENCE_THRESHOLD = .8
 TRACKER_DEREGISTER_FRAMES = 20
 TRACKER_MAX_DISTANCE = 50
 
+valid_models = [ 'mobilenet_ssd', 'yolo_v2_tiny_voc', 'yolo_v2_tiny', 'yolo_v3_tiny' ]
+OBJECT_DETECTION_MODEL=os.getenv('OBJECT_DETECTION_MODEL', 'mobilenet_ssd')
+if OBJECT_DETECTION_MODEL not in valid_models:
+    print("Selected model is invalid, changing to default: mobilenet_ssd")
+    OBJECT_DETECTION_MODEL='mobilenet_ssd'
+
 
 def main():
     # Spin up the object detector
-    obj_detect = edgeiq.ObjectDetection("alwaysai/mobilenet_ssd")
-    obj_detect.load(engine=edgeiq.Engine.DNN_CUDA)
+    obj_detect = edgeiq.ObjectDetection("alwaysai/" + OBJECT_DETECTION_MODEL)
+    obj_detect.load(engine=edgeiq.Engine.DNN_CUDA, accelerator=edgeiq.Accelerator.NVIDIA)
 
     print("Engine: {}".format(obj_detect.engine))
     print("Accelerator: {}\n".format(obj_detect.accelerator))
     print("Model:\n{}\n".format(obj_detect.model_id))
-
+    print("Labels:\n{}\n".format(obj_detect.labels))
+    
     # Prepare to track frames per second calculations
     fps = edgeiq.FPS()
 
@@ -65,8 +73,8 @@ def main():
 
                 # Store active predictions for just this loop
                 predictions = []
-                # Store the active object ids for just this loop
 
+                # Store the active object ids for just this loop
                 if len(objects.items()) == 0:
                     # No people detected
                     text.append("-- NONE")

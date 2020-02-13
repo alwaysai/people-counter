@@ -1,15 +1,7 @@
-FROM alwaysai/edgeiq:arm-latest
+FROM alwaysai/edgeiq:nano-0.11.0
 WORKDIR /usr/src
 
-# Install alwaysAI CLI
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
-RUN npm install --global alwaysai
-
 COPY . .
-RUN pip install paho-mqtt
-# Can't download models automatically since it requires auth
-# RUN ALWAYSAI_HOME=$(pwd) aai app install; exit 0
+RUN pip3 install paho-mqtt
 
-CMD while : ; do echo "${MESSAGE=Idling...}"; sleep ${INTERVAL=600}; done
-# CMD [ "python", "app.py" ]
+CMD [ "python3", "app.py" ]
