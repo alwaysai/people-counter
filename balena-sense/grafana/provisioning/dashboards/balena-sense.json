@@ -19,7 +19,7 @@
   "panels": [
     {
       "aliasColors": {},
-      "bars": false,
+      "bars": true,
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
@@ -46,7 +46,7 @@
         "total": false,
         "values": false
       },
-      "lines": true,
+      "lines": false,
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
@@ -67,7 +67,7 @@
           "groupBy": [
             {
               "params": [
-                "$interval"
+                "5m"
               ],
               "type": "time"
             }
@@ -82,7 +82,7 @@
             [
               {
                 "params": [
-                  "humidity"
+                  "person"
                 ],
                 "type": "field"
               },
@@ -99,7 +99,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "people-counter",
+      "title": "Unique visits (5 min interval)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -135,9 +135,126 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "content": "\n<iframe id=\"innerIframe\" scrolling=\"no\" width=\"100%\" height=\"100%\" src=\"http://192.168.90.222:5000\"></iframe>\n\n",
+      "gridPos": {
+        "h": 17,
+        "w": 14,
+        "x": 0,
+        "y": 8
+      },
+      "id": 23,
+      "mode": "html",
+      "options": {},
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "alwaysAI streamer",
+      "type": "text"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "#d44a3a",
+        "rgba(237, 129, 40, 0.89)",
+        "#299c46"
+      ],
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 14,
+        "y": 8
+      },
+      "id": 21,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false,
+        "ymax": null,
+        "ymin": null
+      },
+      "tableColumn": "person",
+      "targets": [
+        {
+          "groupBy": [],
+          "measurement": "balena-sense",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "person"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": "",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Total visits",
+      "type": "singlestat",
+      "valueFontSize": "120%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "avg"
     }
   ],
-  "refresh": "5m",
+  "refresh": "30s",
   "schemaVersion": 19,
   "style": "dark",
   "tags": [],
@@ -145,7 +262,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -176,5 +293,5 @@
   "timezone": "",
   "title": "balenaSense",
   "uid": "pF3gRDiRk",
-  "version": 1
+  "version": 4
 }

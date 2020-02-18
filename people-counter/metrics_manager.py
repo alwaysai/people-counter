@@ -30,7 +30,7 @@ class MetricsManager:
             
             # If new person detected, send to balenaSense
             print("New person detected!")
-            publish.single("sensors", payload=json.dumps({ "person" : True }), qos=2, hostname="mqtt", port=1883)
+            publish.single("sensors", payload=json.dumps({"person" : 1}), qos=2, hostname="mqtt", port=1883)
 
         else:
             self.ALL_USERS[objectId] += elapsed
