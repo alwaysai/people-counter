@@ -1,0 +1,36 @@
+version: '2'
+volumes:
+    sense-data:
+services:
+  influxdb:
+    restart: always
+    build: ./influxdb
+    volumes:
+      - 'sense-data:/data'
+  grafana:
+    restart: always
+    build: ./grafana
+    ports:
+      - "80"
+    volumes:
+      - 'sense-data:/data'
+    environment:
+        - 'GF_SERVER_HTTP_PORT=80'
+        - 'GF_PATHS_PROVISIONING=/usr/src/app/provisioning'
+        - 'GF_SESSION_PROVIDER=memory'
+  sensor:
+    build: ./sensor
+    privileged: true
+    restart: always
+    volumes:
+      - 'sense-data:/data'
+  telegraf:
+    build: ./telegraf
+    restart: always
+    cap_add:
+      - SYS_ADMIN
+  mqtt:
+    image: arm32v6/eclipse-mosquitto
+    ports:
+      - "1883:1883"
+    restart: always
