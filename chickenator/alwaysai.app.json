@@ -1,0 +1,11 @@
+{
+  "models": {
+    "alwaysai/squeezenet_v1.1": 1,
+    "alwaysai/mobilenet_v1_1.0_224": 6,
+    "alwaysai/googlenet": 7,
+    "alwaysai/alexnet": 7
+  },
+  "scripts": {
+    "start": "python3 app.py"
+  }
+}
