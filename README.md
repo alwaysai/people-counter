@@ -21,8 +21,8 @@ It creates a grafana dashboard that shows the video stream from alwaysAI with ad
 
 To visualize statistics and a video stream:
 
-- Grafana: http://<localIP>
-- alwaysAI: http://<localIP>:5000
+- Grafana: http://deviceLocalIP
+- alwaysAI: http://deviceLocalIP:5000
 
 Note that the grafana dashboard will show both stats and the alwaysAI stream so it's better for a live demo.
 
