@@ -10,7 +10,7 @@ It creates a grafana dashboard that shows the video stream from alwaysAI with ad
 - A [USB Webcam](https://www.amazon.com/Logitech-Desktop-Widescreen-Calling-Recording/dp/B004FHO5Y6/ref=sr_1_4?keywords=logitech+webcam+usb&qid=1582050432&sr=8-4)
 - A [WiFi USB dongle](https://www.amazon.com/TP-Link-wireless-network-Adapter-SoftAP/dp/B008IFXQFU/ref=sr_1_3?keywords=usb+wifi+adapter&qid=1582050405&sr=8-3)
 
-## Before you start
+## Before you start
 
 1. Plug the USB webcam and the USB WiFi dongle into the Jetson Nano
 2. Fit a jumper to J48 on the Jetson Nano board ([instructions](https://devtalk.nvidia.com/default/topic/1048640/jetson-nano/power-supply-considerations-for-jetson-nano-developer-kit/))
@@ -27,7 +27,7 @@ To visualize statistics and a video stream:
 Note that the grafana dashboard will show both stats and the alwaysAI stream so it's better for a live demo.
 
 
-## Usage: Change object detection model
+## Usage: Change object detection model
 
 You can change the model that is used to perform object detection via the `OBJECT_DETECTION_MODEL` environment variable:
 
