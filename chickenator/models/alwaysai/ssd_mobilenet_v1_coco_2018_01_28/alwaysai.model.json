@@ -1,0 +1,30 @@
+{
+  "id": "alwaysai/ssd_mobilenet_v1_coco_2018_01_28",
+  "accuracy": "",
+  "description": "SSD detection network based on the MobileNet architecture, model is pre-trained on the COCO dataset.",
+  "inference_time": 0.20031,
+  "license": "Apache-2.0",
+  "mean_average_precision_top_1": 0.21,
+  "mean_average_precision_top_5": null,
+  "public": true,
+  "website_url": "https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md",
+  "model_parameters": {
+    "framework_type": "tensorflow",
+    "config_file": "models/ssd_mobilenet_v1_coco_2018_01_28.pbtxt",
+    "size": [
+      300,
+      300
+    ],
+    "model_file": "models/ssd_mobilenet_v1_coco_2018_01_28.pb",
+    "label_file": "labels/coco_labels_list.txt",
+    "scalefactor": 1,
+    "mean": [
+      0,
+      0,
+      0
+    ],
+    "crop": false,
+    "purpose": "ObjectDetection"
+  },
+  "version": 6
+}

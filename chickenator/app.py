@@ -17,11 +17,11 @@ DETECT_CONFIDENCE_THRESHOLD = .8
 TRACKER_DEREGISTER_FRAMES = 20
 TRACKER_MAX_DISTANCE = 50
 
-valid_models = [ 'squeezenet_v1.1', 'alexnet', 'googlenet', 'mobilenet_v1_1.0_224' ]
-OBJECT_DETECTION_MODEL=os.getenv('OBJECT_DETECTION_MODEL', 'alexnet')
+valid_models = [ 'ssd_mobilenet_v1_coco_2018_01_28', 'squeezenet_v1.1', 'alexnet', 'googlenet', 'mobilenet_v1_1.0_224', 'squeezenet_ssd' ]
+OBJECT_DETECTION_MODEL=os.getenv('OBJECT_DETECTION_MODEL', 'ssd_mobilenet_v1_coco_2018_01_28')
 if OBJECT_DETECTION_MODEL not in valid_models:
     print("Selected model is invalid, changing to default: alexnet")
-    OBJECT_DETECTION_MODEL='alexnet'
+    OBJECT_DETECTION_MODEL='ssd_mobilenet_v1_coco_2018_01_28'
 
 
 def main():
@@ -61,13 +61,13 @@ def main():
 
                 # Ignore detections of anything other than people
                 filter = edgeiq.filter_predictions_by_label(
-                    results.predictions, ['prairie chicken', 'hen', 'cock'])
+                    results.predictions, ['bird'])
 
                 # Adding info for streamer display
                 text = ["Model: {}".format(obj_detect.model_id)]
                 text.append(
                     "Inference time: {:1.3f} s".format(results.duration))
-                text.append("People currently detected:")
+                text.append("Chickens currently detected:")
 
                 objects = centroid_tracker.update(filter)
 
