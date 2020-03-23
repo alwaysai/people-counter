@@ -40,7 +40,8 @@ You can change the model that is used to perform object detection via the `OBJEC
 
 ## Usage: Use an IP camera
 
-You can add an RSTP feed url via the `IP_CAMERA_FEED` environment variable. Examplesr:
+You can add an RSTP feed url via the `IP_CAMERA_FEED` environment variable. Examples:
+
 ```rtsp://192.168.1.10:88```
 With a video stream defined:
 ```rtsp://192.168.1.10:88/mainVideo```
