@@ -22,6 +22,7 @@ OBJECT_DETECTION_MODEL=os.getenv('OBJECT_DETECTION_MODEL', 'mobilenet_ssd')
 if OBJECT_DETECTION_MODEL not in valid_models:
     print("Selected model is invalid, changing to default: mobilenet_ssd")
     OBJECT_DETECTION_MODEL='mobilenet_ssd'
+IP_CAMERA_FEED=os.getenv('IP_CAMERA_FEED', default = None)
 
 
 def main():
@@ -45,9 +46,13 @@ def main():
         METRICS_MANAGER, metrics_manager.MetricsManager())
 
     try:
+        if IP_CAMERA_FEED is not None:
+            stream_details = edgeiq.IPVideoStream(IP_CAMERA_FEED)
+        else:
+            stream_details = edgeiq.WebcamVideoStream(cam=0)
 
-        with edgeiq.WebcamVideoStream(cam=0) as video_stream, \
-                edgeiq.Streamer() as streamer:
+        with stream_details as video_stream, \
+        edgeiq.Streamer() as streamer:
             # Allow Webcam to warm up
             time.sleep(2.0)
             fps.start()
