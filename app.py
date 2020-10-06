@@ -1,5 +1,5 @@
 """
-Sample application using object detection and centroid tracking to 
+Sample application using object detection and centroid tracking to
 determine the number of non-unique people who pass in view, as well
 display general metrics on total number of people, average time seen,
 and longest time detected.
@@ -20,7 +20,7 @@ TRACKER_MAX_DISTANCE = 50
 def main():
     # Spin up the object detector
     obj_detect = edgeiq.ObjectDetection("alwaysai/mobilenet_ssd")
-    obj_detect.load(engine=edgeiq.Engine.DNN_OPENVINO)
+    obj_detect.load(engine=edgeiq.Engine.DNN)
 
     print("Engine: {}".format(obj_detect.engine))
     print("Accelerator: {}\n".format(obj_detect.accelerator))
@@ -38,7 +38,7 @@ def main():
 
     try:
 
-        with edgeiq.WebcamVideoStream(cam=0) as video_stream, \
+        with edgeiq.WebcamVideoStream(cam=2) as video_stream, \
                 edgeiq.Streamer() as streamer:
             # Allow Webcam to warm up
             time.sleep(2.0)
