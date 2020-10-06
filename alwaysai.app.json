@@ -1,6 +1,6 @@
 {
   "models": {
-    "alwaysai/mobilenet_ssd": 1
+    "alwaysai/mobilenet_ssd": 4
   },
   "scripts": {
     "start": "python app.py"
