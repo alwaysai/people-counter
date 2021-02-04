@@ -15,8 +15,8 @@ Once the alwaysAI toolset is installed on your development machine (or edge devi
 To set up the target device & folder path
 `aai app configure`
 
-To build and deploy the docker image of the app to the target device
-`aai app deploy`
+To install the app on the target device
+`aai app install`
 
 To start the app
 `aai app start`
