@@ -1,5 +1,5 @@
 # People Counter App
-This app expands on the alwaysAI face counter starter app to both count the number of non-unique people (same person will be counted multiple times if they exit and re-enter the frame) detecdted and to display basic time metrics on those appearances.
+This app expands on the alwaysAI face counter starter app to both count the number of non-unique people (same person will be counted multiple times if they exit and re-enter the frame) detected and to display basic time metrics on those appearances.
 
 ## Setup
 This app requires access to alwaysAI's Beta program. To apply goto the [Sign up page](https://dashboard.alwaysai.co/docs/getting_started/introduction.html)
